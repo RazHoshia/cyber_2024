@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "P@ssw0rd"
+      MYSQL_DATABASE: "mydatabase"
+      MYSQL_USER: "myuser"
+      MYSQL_PASSWORD: "P@ssw0rd"
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql_network
+    command: --bind-address=0.0.0.0  # Ensures MySQL allows remote connections
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
+
+networks:
+  mysql_network:
+    driver: bridge
