@@ -8,6 +8,8 @@ mysql -h <ip-address-of-vm> -P 3306 -u myuser -p mydatabase
 
 i wanted to have a table to look to so i run these commands:
 
+sudo docker exec -it mysql_db mysql -u myuser -p mydatabase
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
