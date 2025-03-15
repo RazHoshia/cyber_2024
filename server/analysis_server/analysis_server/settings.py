@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "query_analyzer",
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -122,3 +123,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# ProxySQL Config
+PROXYSQL_HOST = "reverse_proxy"
+PROXYSQL_PORT = 6032
+PROXYSQL_USER = "remote_monitor"
+PROXYSQL_PASSWORD = "password"
