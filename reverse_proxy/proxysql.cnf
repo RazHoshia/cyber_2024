@@ -1,12 +1,18 @@
 atadir="/var/lib/proxysql"
-admin_credentials="admin:admin;"  # Login for ProxySQL admin
+
+admin_variables=
+{
+    admin_credentials="admin:admin;remote_monitor:password"
+}
 
 mysql_servers = (
-  { address="192.168.189.142", port=3306, hostgroup=10, max_connections=100 }
+  { address="mysql", port=3306, hostgroup=10, max_connections=100 }
 )
 
-mysql_users = (
-  { username="myuser", password="P@ssw0rd", default_hostgroup=10, transaction_persistent=true }
+# FIXME query_reader use random password from a secret.
+mysql_users = 
+(
+  { username="myuser", password="password", default_hostgroup=10, transaction_persistent=true },
 )
 
 mysql_query_rules = (
@@ -20,3 +26,5 @@ mysql_query_rules = (
 )
 
 mysql_audit_log_filename="/var/log/proxysql_queries.log"
+mysql_eventslog_filename="/var/log/queries.log"
+mysql_connection_max_age_ms=86400000

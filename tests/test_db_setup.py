@@ -7,7 +7,7 @@ DB_USER = "myuser"
 DB_PASSWORD = "password"
 DB_NAME = "mydatabase"
 
-def test_connection():
+def test_db_read():
     try:
         # Connect to MySQL via ProxySQL using PyMySQL
         conn = pymysql.connect(
@@ -37,4 +37,4 @@ def test_connection():
         print(f"Error: {err}")
 
 if __name__ == "__main__":
-    test_connection()
+    test_db_read()

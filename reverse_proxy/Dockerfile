@@ -1,4 +1,3 @@
-# Start from the official ProxySQL image
 FROM proxysql/proxysql
 
 # Install Python and required dependencies
@@ -11,10 +10,14 @@ WORKDIR /app
 RUN python3 -m venv /app/venv
 
 # Activate the virtual environment and install dependencies
-RUN /app/venv/bin/pip install --upgrade pip && /app/venv/bin/pip install pymysql requests
+RUN /app/venv/bin/pip install --upgrade pip 
 
-# Copy the Python script into the container
-COPY script.py /app/script.py
+# copy and install python requierments
+COPY requierments.txt requierments.txt
+RUN /app/venv/bin/pip install -r requierments.txt
 
-# Run ProxySQL and execute the Python script in the virtual environment
-CMD proxysql & /app/venv/bin/python /app/script.py
+# Copy the Python main into the container
+COPY main.py /app/main.py
+
+# Run ProxySQL and execute the Python main in the virtual environment
+CMD proxysql & /app/venv/bin/python /app/main.py

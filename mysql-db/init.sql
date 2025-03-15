@@ -1,7 +1,9 @@
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd'; 
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'%';
+-- setup monitor user
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';
+GRANT USAGE, REPLICATION CLIENT ON *.* TO 'monitor'@'%';
 FLUSH PRIVILEGES;
+
 USE mydatabase;
 
 -- Create the users table
