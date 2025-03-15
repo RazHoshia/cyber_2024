@@ -1,0 +1,10 @@
+services:
+  query_analysis:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
