@@ -8,7 +8,7 @@ PROXYSQL_PORT = 6032
 PROXYSQL_USER = "remote_monitor"
 PROXYSQL_PASSWORD = "password"
 
-def fetch_queries():
+def test_fetch_queries():
     """Fetch the last 10 seconds of queries from ProxySQL and print them"""
     try:
         # Get the current epoch time (last 10 seconds)
@@ -37,10 +37,12 @@ def fetch_queries():
         conn.close()
 
         # Print formatted JSON output
-        print(json.dumps(rows, indent=4))
+        d = json.dumps(rows, indent=4)
+        print(d)
+        return d
 
     except Exception as e:
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    fetch_queries()
+    test_fetch_queries()
