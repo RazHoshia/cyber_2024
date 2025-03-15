@@ -1,0 +1,22 @@
+atadir="/var/lib/proxysql"
+admin_credentials="admin:admin;"  # Login for ProxySQL admin
+
+mysql_servers = (
+  { address="192.168.189.142", port=3306, hostgroup=10, max_connections=100 }
+)
+
+mysql_users = (
+  { username="myuser", password="P@ssw0rd", default_hostgroup=10, transaction_persistent=true }
+)
+
+mysql_query_rules = (
+  {
+    rule_id=1,
+    active=1,
+    match_pattern=".*",
+    destination_hostgroup=10,
+    apply=1
+  }
+)
+
+mysql_audit_log_filename="/var/log/proxysql_queries.log"
