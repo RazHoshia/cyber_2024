@@ -126,7 +126,28 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # ProxySQL Config
-PROXYSQL_HOST = "reverse_proxy"
+PROXYSQL_HOST = "127.0.0.1" #"reverse_proxy"
 PROXYSQL_PORT = 6032
 PROXYSQL_USER = "remote_monitor"
 PROXYSQL_PASSWORD = "password"
+
+PROXYSQL_FETCH_QUERY = """
+        SELECT 
+            hostgroup,
+            schemaname,
+            username,
+            client_address,
+            digest,
+            digest_text,
+            count_star,
+            first_seen,
+            last_seen,
+            sum_time,
+            min_time,
+            max_time,
+            sum_rows_affected,
+            sum_rows_sent
+        FROM stats_mysql_query_digest
+        WHERE last_seen >= {}
+        ORDER BY last_seen DESC;
+        """
