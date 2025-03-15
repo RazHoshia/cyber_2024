@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    # ports:
+    #   - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql-db/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+
+  reverse_proxy:
+    image: proxysql/proxysql:latest
+    container_name: reverse_proxy
+    depends_on:
+      - mysql
+    ports:
+      - "6033:6033"  # MySQL client connections
+      - "6032:6032"  # Admin interface
+    volumes:
+      - ./reverse_proxy/proxysql.cnf:/etc/proxysql.cnf
+    command: ["/usr/bin/proxysql", "-f", "-c", "/etc/proxysql.cnf"]
+
+volumes:
+  mysql_data:
