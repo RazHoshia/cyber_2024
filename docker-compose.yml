@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    network_mode: "host"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
+
+  reverse_proxy:
+    build: ./reverse_proxy
+    container_name: reverse_proxy
+    depends_on:
+      - mysql
+    network_mode: "host"
+    ports:
+      - "6033:6033"
+
+  query_analysis_server:
+    build: ./query_analysis_server
+    container_name: query_analysis_server
+    depends_on:
+      - reverse_proxy
+    network_mode: "host"
+    ports:
+      - "5000:5000"
+
+  angular:
+    build: ./angular
+    container_name: angular_frontend
+    depends_on:
+      - query_analysis_server
+    network_mode: "host"
+    ports:
+      - "4200:4200"
+
+volumes:
+  mysql_data:
