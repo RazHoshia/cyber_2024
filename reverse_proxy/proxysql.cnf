@@ -28,3 +28,4 @@ mysql_query_rules = (
 mysql_audit_log_filename="/var/log/proxysql_queries.log"
 mysql_eventslog_filename="/var/log/queries.log"
 mysql_connection_max_age_ms=86400000
+mysql_query_digests_track_hostname=true

@@ -1,0 +1,4 @@
+django
+uvicorn
+gunicorn
+pymysql
